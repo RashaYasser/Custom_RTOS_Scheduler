@@ -35,29 +35,16 @@ This project demonstrates a custom RTOS scheduler for the AVR ATmega32 microcont
 
 The custom RTOS scheduler provides various functions to manage tasks. These include starting, suspending, deleting, pausing, and resuming tasks.
 
-### Functions
-
-- start_task(task_function): Starts a new task by adding it to the scheduler.
-- suspend_task(task_id): Suspends a running task, preventing it from executing until it is resumed.
-- delete_task(task_id): Deletes a task from the scheduler.
-- pause_task(task_id): Pauses a task temporarily.
-- resume_task(task_id): Resumes a paused task, allowing it to continue execution.
-
-### Usage Example
-
-The RTOS scheduler is designed to manage tasks such as controlling LEDs, a servo motor, and an LCD. The example below shows how tasks can be added to the scheduler and managed using the provided functions.
-
-```markdown
-Tasks:
+### Tasks
 
 - *LED Tasks:* Each LED is controlled by a separate task, which toggles the LED on and off at different intervals.
 - *Servo Task:* This task controls the position of a servo motor using PWM signals.
 - *LCD Task:* This task writes and updates text on a 2x16 LCD display.
 
-Functions:
+### Functions
 
-- start_task(task_function): Starts a new task by adding it to the scheduler.
-- suspend_task(task_id): Suspends a running task, preventing it from executing until it is resumed.
-- delete_task(task_id): Deletes a task from the scheduler.
-- pause_task(task_id): Pauses a task temporarily.
-- resume_task(task_id): Resumes a paused task, allowing it to continue execution.
+- RTOS_voidStart(): Initializes the RTOS scheduler and starts the system.
+- RTOS_voidCreateTask(u8 Copy_u8Priority, u32 Copy_u8Priodicity, void (*Copy_voidPvTaskF)(void)): Creates a new task and assigns it a priority and periodicity.
+- RTOS_voidTerminateTask(u8 Copy_u8TaskID): Terminates a task within the RTOS.
+- RTOS_voidResumeTask(u8 Copy_u8TaskID): Resumes a task within the RTOS.
+- RTOS_voidPauseTask(u8 Copy_u8TaskID): Pauses a task within the RTOS.
