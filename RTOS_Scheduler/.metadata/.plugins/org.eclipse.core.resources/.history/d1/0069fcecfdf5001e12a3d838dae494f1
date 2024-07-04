@@ -1,0 +1,12 @@
+#ifndef  GI_INTERFACE_H
+#define  GI_INTERFACE_H
+
+
+
+#define  SREG    (* (volatile u8 *) (0X5F ) ) 
+
+void  MGI_voidEnable(void) ; 
+void  MGI_voidDisable(void) ;
+
+
+#endif

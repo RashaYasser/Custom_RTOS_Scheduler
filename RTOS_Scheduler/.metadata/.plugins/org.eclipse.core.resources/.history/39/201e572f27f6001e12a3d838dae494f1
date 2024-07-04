@@ -1,0 +1,17 @@
+/*********************************************************************************/
+/* Author    : Essam                                                   		     */
+/* Version   : V01                                                               */
+/* Date      : 27 April 2022                                                     */
+/* Breif     : EXTI driver compatible with ATMEGA 32A Micro Controller	   		 */
+/*********************************************************************************/
+
+
+
+#ifndef EXTINT_CONFIG_H_
+#define EXTINT_CONFIG_H_
+
+
+
+
+
+#endif /* EXTINT_CONFIG_H_ */

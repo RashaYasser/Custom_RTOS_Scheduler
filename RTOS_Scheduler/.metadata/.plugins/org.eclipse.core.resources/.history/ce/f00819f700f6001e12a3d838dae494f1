@@ -1,0 +1,22 @@
+/*
+ ============================================================================
+ Module      : Timer0 driver
+ Name        : TIMER0_Private.h
+ Layer       : RTOS_Stack
+ Author      : RASHA_YASSER
+ Description : private file for interface  timer driver
+ Date        : 7/4/2023
+ ============================================================================
+ */
+#ifndef  TIMER0_PRIVATE_H
+#define  TIMER0_PRIVATE_H
+
+
+#define PRE_1        1
+#define PRE_8        2
+#define PRE_64       3
+#define PRE_256      4
+#define PRE_1024     5
+
+
+#endif

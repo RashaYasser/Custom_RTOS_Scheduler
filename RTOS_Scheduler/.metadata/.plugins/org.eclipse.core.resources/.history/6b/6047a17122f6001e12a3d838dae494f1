@@ -1,0 +1,14 @@
+#ifndef rto_private.h
+#define rto_private.h
+
+
+typedef struct
+{
+	u32 periodicity;
+	u32 first_delay;
+	void (*pf)(void);
+}TCB;
+
+
+
+#endif

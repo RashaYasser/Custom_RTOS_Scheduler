@@ -1,0 +1,12 @@
+#ifndef rto_config.h
+#define rto_config.h
+
+
+
+#define RTO_u8_MAX_PRIORITY    5
+
+
+
+
+
+#endif

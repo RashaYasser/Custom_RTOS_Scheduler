@@ -1,0 +1,96 @@
+/*
+ ============================================================================
+ Module      : RTOS driver
+ Name        : RTOS_program.c
+ Layer       : RTOS_Stack
+ Author      : RASHA_YASSER
+ Description : RTOS program
+ Date        : 7/4/2024
+ ============================================================================
+ */
+
+/*LIB*/
+#include"STD_TYPES.h"
+/*MCAL*/
+#include"TIMER0_interface.h"
+#include"GIE_interface.h"
+/*RTOS Stack*/
+#include"RTOS_interface.h"
+#include"RTOS_config.h"
+#include"RTOS_private.h"
+/*create array of TCB struct and initialize it to handle in case user create task and didn't use it*/
+TCB RtosTasks[MAX_NUM_OF_TASKS]={{0}};
+/*initialize system */
+void RTOS_voidStart()
+{
+    // Set the scheduler to run in the interrupt service routine(ISR)
+    TIMER0_compMatchSetCallBack(&voidScheduler);
+    GIE_voidEnable();/*global interrupt enable*/
+    TIMER0_voidInit();/*initialize timer0 */
+}
+
+u8 RTOS_voidCreateTask(u8 Copy_u8Priority,u32 Copy_u8Priodicity,void (*Copy_voidPvTaskF)(void))
+{       /*set priority as the index of array 0 is a highest priority*/
+	u8 Local_u8ReturnedState=OK;// Initialize the return state to OK
+	      /* Check if the priority is within the valid range
+	       *  priority if less than max no.of task assign this task in TCB*/
+		if(Copy_u8Priority < MAX_NUM_OF_TASKS)
+		{
+	        // Set the task's periodicity
+			RtosTasks[Copy_u8Priority].periodicity=Copy_u8Priodicity;
+	        // Set the pointer to the task function
+			RtosTasks[Copy_u8Priority].PvTaskFunc=Copy_voidPvTaskF;
+		}
+
+		else
+	    {   // Priority exceeds the maximum number of tasks, return NOT_OK
+		    Local_u8ReturnedState=NOT_OK;
+	    }
+	    return Local_u8ReturnedState;
+
+}
+static void voidScheduler()
+{
+		static u16 Local_u16TickCounter=0;//counter to  count Tick timer
+		u8 Local_u8TaskCounter;//counter to count tasks
+		Local_u16TickCounter++;//increment the tick counter for each invocation of the scheduler function.
+
+       /*Loop on all tasks for check their periodicity */
+		for(Local_u8TaskCounter=0;Local_u8TaskCounter<MAX_NUM_OF_TASKS;Local_u8TaskCounter++)
+		{
+			/* checks if the current tick count is a multiple of the task's periodicity.
+            If it is, the task is due for execution.*/
+			if((Local_u16TickCounter%RtosTasks[Local_u8TaskCounter].periodicity)==0)
+			{
+	            // Check if the task's function pointer is not NULL
+				if((RtosTasks[Local_u8TaskCounter].PvTaskFunc) != NULL)
+				{
+					/*Invoke this task*/
+					RtosTasks[Local_u8TaskCounter].PvTaskFunc();
+
+				}
+				else
+				{
+					//Do nothing
+				}
+			}
+		}
+
+}
+
+
+
+void RTOS_voidKillTask(u8 Copy_u8TaskID )
+{
+	RtosTasks[Copy_u8TaskID].PvTaskFunc =NULL ;
+}
+
+void RTOS_voidPauseTask(u8 Copy_u8TaskID )
+{
+	RtosTasks[Copy_u8TaskID].taskState	= TASK_SUSPEND ;
+}
+
+void RTOS_voidResumeTask(u8 Copy_u8TaskID )
+{
+	RtosTasks[Copy_u8TaskID].taskState	 = TASK_READY;
+}

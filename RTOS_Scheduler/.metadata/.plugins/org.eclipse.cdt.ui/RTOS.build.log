@@ -1,0 +1,48 @@
+07:58:40 **** Incremental Build of configuration Debug for project RTOS ****
+make all 
+Building file: ../RTOS_program.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=16000000UL -MMD -MP -MF"RTOS_program.d" -MT"RTOS_program.o" -c -o "RTOS_program.o" "../RTOS_program.c"
+Finished building: ../RTOS_program.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=16000000UL -MMD -MP -MF"main.d" -MT"main.o" -c -o "main.o" "../main.c"
+In file included from ../main.c:14:
+c:/winavr-20100110/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+In file included from ../main.c:19:
+../timer_interface.h:1:24: warning: extra tokens at end of #ifndef directive
+../timer_interface.h:2:24: warning: ISO C99 requires whitespace after the macro name
+../main.c: In function 'main':
+../main.c:32: warning: pointer targets in passing argument 1 of 'LCD_voidSendStr' differ in signedness
+../main.c: In function 'Task_5':
+../main.c:115: warning: pointer targets in passing argument 1 of 'LCD_voidSendStr' differ in signedness
+Finished building: ../main.c
+ 
+Building target: RTOS.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,RTOS.map -mmcu=atmega32 -o "RTOS.elf"  ./EXTINT_program.o ./GIE_program.o ./RTOS_program.o ./TIMER0_program.o ./lcd_programme.o ./main.o ./programme\ file.o ./timer_programme.o   
+Finished building target: RTOS.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S RTOS.elf  >"RTOS.lss"
+Finished building: RTOS.lss
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 RTOS.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:   13238 bytes (40.4% Full)
+(.text + .data + .bootloader)
+
+Data:         74 bytes (3.6% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+07:58:42 Build Finished. 0 errors, 5 warnings. (took 1s.612ms)
+

@@ -1,0 +1,30 @@
+/*
+ ============================================================================
+ Module      : RTOS driver
+ Name        : RTOS_private.h
+ Layer       : RTOS_Stack
+ Author      : RASHA_YASSER
+ Description : RTOS program
+ Date        : 7/4/2024
+ ============================================================================
+ */
+
+#ifndef RTOS_PRIVATE_H_
+#define RTOS_PRIVATE_H_
+
+
+#define TASK_READY       0
+#define TASK_SUSPEND     1
+
+typedef struct
+{
+	u16 periodicity;
+	void (*PvTaskFunc)(void);
+	u8 taskState;
+}TCB;/*task block controller*/
+
+
+static void voidScheduler();
+
+
+#endif /* RTOS_PRIVATE_H_ */

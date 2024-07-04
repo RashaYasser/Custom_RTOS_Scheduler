@@ -1,0 +1,48 @@
+#include "bit.h"
+#include "type.h"
+#include "timer_interface.h"
+#include "gie_interface.h"
+#include "rto_private.h"
+#include "rto_config.h"
+#include "rto_interface.h"
+
+TCB RTO_aTCBNumberOfTasks[RTO_u8_MAX_PRIORITY];
+
+u8 RTO_u8CreateTask(u8 Copy_u8Priority,u32 Copy_u8Priodicity,u32 Copy_u8FirstDelay,void (*Copy_voidPF)(void))
+{
+	u8 Local_u8ReturnedState=OK;
+	if(Copy_u8Priority < RTO_u8_MAX_PRIORITY)
+	{
+		RTO_aTCBNumberOfTasks[Copy_u8Priority].periodicity=Copy_u8Priodicity;
+		RTO_aTCBNumberOfTasks[Copy_u8Priority].first_delay=Copy_u8FirstDelay;
+		RTO_aTCBNumberOfTasks[Copy_u8Priority].pf=Copy_voidPF;
+	}
+    else
+    {
+	    Local_u8ReturnedState=NOT_OK;
+    }
+    return Local_u8ReturnedState;   
+}
+void RTO_voidScheduler(void)
+{
+	int i;
+	for(i=0;i<RTO_u8_MAX_PRIORITY;i++)
+	{
+		if(RTO_aTCBNumberOfTasks[i].first_delay == 0)
+		{
+			RTO_aTCBNumberOfTasks[i].first_delay = RTO_aTCBNumberOfTasks[i].periodicity-1;
+			RTO_aTCBNumberOfTasks[i].pf();
+		}
+		else
+		{
+			RTO_aTCBNumberOfTasks[i].first_delay--;
+		}
+	}
+}
+void RTO_voidStartSys(void)
+{
+	EXTI_voidControlGIE(GIE_u8_ON);
+	TMR0_voidInit();
+	TMR0_voidSetCallBack(TMR0_u8_NORMAL,&RTO_voidScheduler);
+	TMR0_voidEnablePIE(TMR0_u8_OVERFLOW);
+}

@@ -1,0 +1,38 @@
+/*
+ ============================================================================
+ Module      : RTOS driver
+ Name        : RTOS_program.c
+ Layer       : RTOS_Stack
+ Author      : RASHA_YASSER
+ Description : RTOS program
+ Date        : 7/4/2023
+ ============================================================================
+ */
+
+/*LIB*/
+#include"STD_TYPES.h"
+/*MCAL*/
+#include"TIMER0_interface.h"
+#include"GIE_interface.h"
+/*RTOS Stack*/
+#include"RTOS_interface.h"
+#include"RTOS_config.h"
+#include"RTOS_private.h"
+
+TCB RtosTasks[MAX_NUM_OF_TASKS];
+/*initialize system */
+void RTOS_voidStart()
+{
+    TIMER0_compMatchSetCallBack(&voidScheduler);/*set scheduler to run in ISR*/
+    GIE_voidEnable();/*global interrupt enable*/
+    TIMER0_voidInit();/*initialize timer0 */
+}
+
+void RTOS_voidCreateTask(u8 Copy_u8Priority,u32 Copy_u8Priodicity,u32 Copy_u8FirstDelay,void (*Copy_voidPF)(void))
+{
+
+
+}
+static void voidScheduler()
+{
+}

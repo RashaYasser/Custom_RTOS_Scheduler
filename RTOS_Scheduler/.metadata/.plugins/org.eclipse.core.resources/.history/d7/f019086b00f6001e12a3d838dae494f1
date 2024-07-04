@@ -1,0 +1,22 @@
+/*
+ ============================================================================
+ Module      : Timer0 driver
+ Name        : TIMER0_interface.h
+ Layer       : RTOS_Stack
+ Author      : RASHA_YASSER
+ Description : interface file for interface  timer driver
+ Date        : 7/4/2023
+ ============================================================================
+ */
+
+#ifndef TIMER0_INTERFACE_H_
+#define TIMER0_INTERFACE_H_
+
+void TIMER0_Init(void);
+
+u8 TIMER0_compMatchSetCallBack(void(*PvCallBackFunc)(void));
+
+
+
+
+#endif

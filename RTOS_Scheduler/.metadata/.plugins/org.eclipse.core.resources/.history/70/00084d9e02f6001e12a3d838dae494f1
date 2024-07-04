@@ -1,0 +1,70 @@
+/*
+ ============================================================================
+ Module      : Timer0 driver
+ Name        : TIMER0_interface.h
+ Layer       : RTOS_Stack
+ Author      : RASHA_YASSER
+ Description : Timer driver
+ Date        : 7/4/2023
+ ============================================================================
+ */
+#include"TIMER0_config.h"
+#include"TIMER0_interface.h"
+#include"TIMER0_private.h"
+#include"STD_TYPES.h"
+#include<avr/io.h>
+
+static volatile void(*Timer0_pvCompMatchCallBakFunc)=NULL;
+
+void TIMER0_voidInit(void)
+{  /*initialize of timer0 to work in CTC mode */
+	TCCR0|=(1<<FOC0)|(1<<WGM01);
+	/*masking*/
+	TCCR0&=(1<<F8);
+	/* set pre_scaler*/
+	TCCR0|=TIMER0_PreScaller;
+	/* set compare value*/
+	OCR0|=TIMER0_compareValue;
+	/* interrupt enable for timer0 */
+	TIMSK|=(1<<OCIE0);
+
+}
+
+
+u8 TIMER0_compMatchSetCallBack(void(*Copy_PvCallBackFunc)(void))
+{
+	u8 LocalErrorState=OK;
+/*Check if pointer point to address */
+	if(Copy_PvCallBackFunc !=NULL)
+	{
+		/* if  point save it  in global pointer */
+
+		Timer0_pvCompMatchCallBakFunc=Copy_PvCallBackFunc;
+	}
+	else
+	{
+		/* if not  point return error state */
+
+		LocalErrorState=NULL;
+	}
+	return LocalErrorState;
+
+}
+
+
+/*Timer0 ISR*/
+
+
+void  __Vector_10 (void)   __attribute__((signal));
+void  __Vector_10 (void)
+{
+if(Timer0_pvCompMatchCallBakFunc !=NULL)
+{
+
+	CallBack_Ptr();
+}
+else
+{
+	}
+}
+

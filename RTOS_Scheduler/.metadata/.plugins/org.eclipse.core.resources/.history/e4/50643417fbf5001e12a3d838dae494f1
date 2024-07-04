@@ -1,0 +1,22 @@
+/*
+ ============================================================================
+ Module      : Timer0 driver
+ Name        : TIMER0_config.h
+ Layer       : RTOS_Stack
+ Author      : RASHA_YASSER
+ Description : config file for interface  timer driver
+ Date        : 11/10/2023
+ ============================================================================
+ */
+
+#ifndef  TIMER0_CONFIG_H
+#define  TIMER0_CONFIG_H
+
+#define TIMER0_PreScaller  PRE_64    /* set pre_scaler*/
+
+#define TIMER0_compareValue  125 	/* set compare value*/
+
+
+
+
+#endif 

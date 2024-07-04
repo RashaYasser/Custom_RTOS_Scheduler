@@ -1,0 +1,11 @@
+#include "STD_TYPES.h"
+#include "GIE_interface.h"
+
+
+void  MGI_voidEnable(void){
+	SET_BIT(SREG , 7 ) ; 
+}
+
+void  MGI_voidDisable(void){
+	 CLR_BIT(SREG , 7 ) ; 
+}

@@ -1,0 +1,15 @@
+/*LIB*/
+#include"STD_TYPES.h"
+/*MCAL*/
+#include"TIMER0_interface.h"
+#include"GIE_interface.h"
+/*RTOS Stack*/
+#include"RTOS_interface.h"
+#include"RTOS_config.h"
+#include"RTOS_private.h"
+void RTOS_voidStart();
+
+void RTOS_voidCreateTask((u8 Copy_u8Priority,u32 Copy_u8Priodicity,u32 Copy_u8FirstDelay,void (*Copy_voidPF)(void))
+		{
+
+		}

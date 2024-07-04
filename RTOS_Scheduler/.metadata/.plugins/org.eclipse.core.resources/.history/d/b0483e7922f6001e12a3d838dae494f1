@@ -1,0 +1,23 @@
+#ifndef rto_interface.h
+#define rto_interface.h
+
+
+
+u8 RTO_u8CreateTask(u8 Copy_u8Priority,u32 Copy_u8Priodicity,u32 Copy_u8FirstDelay,void (*Copy_voidPF)(void));
+
+
+void RTO_voidScheduler(void);
+
+
+void RTO_voidStartSys(void);
+
+
+
+
+
+
+
+
+
+
+#endif

@@ -1,0 +1,28 @@
+/*
+ ============================================================================
+ Module      : RTOS driver
+ Name        : RTOS_interface.h
+ Layer       : RTOS_Stack
+ Author      : RASHA_YASSER
+ Description : header file for interface  RTOS Stack
+ Date        : 7/4/2024
+ ============================================================================
+ */
+#ifndef RTOS_INTERFACE_H_
+#define RTOS_INTERFACE_H_
+
+/*******************************************************************************
+ *                              Functions Prototypes
+ *******************************************************************************/
+
+void RTOS_voidStart();
+
+u8 RTOS_voidCreateTask(u8 Copy_u8Priority,u32 Copy_u8Priodicity,void (*Copy_voidPvTaskF)(void));
+void RTOS_voidKillTask(u8 Copy_u8TaskID );
+void RTOS_voidResumeTask(u8 Copy_u8TaskID );
+void RTOS_voidPauseTask(u8 Copy_u8TaskID );
+
+
+
+
+#endif /* RTOS_INTERFACE_H_ */

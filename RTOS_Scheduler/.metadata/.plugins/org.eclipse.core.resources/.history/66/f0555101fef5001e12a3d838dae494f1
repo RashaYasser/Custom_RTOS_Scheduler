@@ -1,0 +1,14 @@
+#include "..\include\STD_TYPES.h"
+#include "..\include\BIT_MATH.h"
+
+
+#include "..\include\GI_interface.h"
+
+
+void  MGI_voidEnable(void){
+	SET_BIT(SREG , 7 ) ; 
+}
+
+void  MGI_voidDisable(void){
+	 CLR_BIT(SREG , 7 ) ; 
+}

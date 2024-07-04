@@ -1,0 +1,42 @@
+07:49:35 **** Incremental Build of configuration Debug for project TEST ****
+make all 
+Building file: ../RTOS_program.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=1000000UL -MMD -MP -MF"RTOS_program.d" -MT"RTOS_program.o" -c -o "RTOS_program.o" "../RTOS_program.c"
+../RTOS_program.c:13:22: error: STD_TYPES.h: No such file or directory
+../RTOS_program.c:15:29: error: TIMER0_interface.h: No such file or directory
+In file included from ../RTOS_program.c:16:
+../GIE_interface.h:8: error: expected ')' before 'Copy_State'
+In file included from ../RTOS_program.c:18:
+../RTOS_interface.h:16: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'RTOS_voidCreateTask'
+../RTOS_interface.h:17: error: expected ')' before 'Copy_u8TaskID'
+../RTOS_interface.h:18: error: expected ')' before 'Copy_u8TaskID'
+../RTOS_interface.h:19: error: expected ')' before 'Copy_u8TaskID'
+In file included from ../RTOS_program.c:20:
+../RTOS_private.h:17: error: expected specifier-qualifier-list before 'u16'
+../RTOS_program.c:22: warning: excess elements in struct initializer
+../RTOS_program.c:22: warning: (near initialization for 'RtosTasks[0]')
+../RTOS_program.c: In function 'RTOS_voidStart':
+../RTOS_program.c:26: warning: implicit declaration of function 'TIMER0_compMatchSetCallBack'
+../RTOS_program.c:27: warning: implicit declaration of function 'GIE_voidEnable'
+../RTOS_program.c:28: warning: implicit declaration of function 'TIMER0_voidInit'
+../RTOS_program.c: At top level:
+../RTOS_program.c:31: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'RTOS_voidCreateTask'
+../RTOS_program.c: In function 'voidScheduler':
+../RTOS_program.c:53: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'Local_u16TickCounter'
+../RTOS_program.c:53: error: 'Local_u16TickCounter' undeclared (first use in this function)
+../RTOS_program.c:53: error: (Each undeclared identifier is reported only once
+../RTOS_program.c:53: error: for each function it appears in.)
+../RTOS_program.c:54: error: 'u8' undeclared (first use in this function)
+../RTOS_program.c:54: error: expected ';' before 'Local_u8TaskCounter'
+../RTOS_program.c:58: error: 'Local_u8TaskCounter' undeclared (first use in this function)
+../RTOS_program.c:65: error: 'NULL' undeclared (first use in this function)
+../RTOS_program.c: At top level:
+../RTOS_program.c:82: error: expected ')' before 'Copy_u8TaskID'
+../RTOS_program.c:87: error: expected ')' before 'Copy_u8TaskID'
+../RTOS_program.c:92: error: expected ')' before 'Copy_u8TaskID'
+make: *** [RTOS_program.o] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+
+07:49:36 Build Failed. 19 errors, 5 warnings. (took 423ms)
+

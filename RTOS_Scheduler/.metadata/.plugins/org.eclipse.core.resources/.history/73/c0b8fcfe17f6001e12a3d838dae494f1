@@ -1,0 +1,21 @@
+/*
+ * Rtos_private.h
+ *
+ *  Created on: Apr 9, 2024
+ *      Author: t
+ */
+
+#ifndef RTOS_PRIVATE_H_
+#define RTOS_PRIVATE_H_
+
+typedef struct
+{
+	u16 periodicity;
+	void (*PvTaskFunc)(void);
+}TCB;/*task block controller*/
+
+
+static void voidScheduler();
+
+
+#endif /* RTOS_PRIVATE_H_ */

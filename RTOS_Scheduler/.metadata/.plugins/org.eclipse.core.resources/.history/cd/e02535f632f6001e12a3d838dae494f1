@@ -1,0 +1,121 @@
+/*
+ ============================================================================
+ Name        : main.c
+ Layer       : APP
+ Author      : RASHA_YASSER
+ Date        : 7/4/2024
+ ============================================================================
+ */
+
+#include "BIT_MATH.h"           // Bit manipulation macros
+#include "STD_TYPES.h"          // Standard data types
+#include "interface.h"          // Example interface header (replace with actual interface header)
+#include "EXTINT_interface.h"   // External Interrupt interface
+#include <util/delay.h>         // Delay functions
+#include "TIMER0_interface.h"   // Timer0 interface
+#include "RTOS_interface.h"     // Real-Time Operating System (RTOS) interface
+#include "GIE_interface.h"      // Global Interrupt Enable interface
+#include "lcd_interface.h"      // LCD interface (replace with actual LCD interface)
+#include "timer_interface.h"    // Timer interface (replace with actual timer interface)
+
+/* Task function prototypes */
+void Task_1(void);
+void Task_2(void);
+void Task_3(void);
+void Task_4(void);
+void Task_5(void);
+void Suspend_LCD(void);
+
+int main()
+{
+    /* Initialize GPIO directions and initial values */
+    DIO_u8IntialDirection();
+    DIO_u8IntialValue();
+
+    /* Initialize LCD */
+    LCD_voidInitial();
+    LCD_voidSendStr("Farida");  // Display initial text on LCD
+
+    /* Initialize Timer1 for specific time interval */
+    TMR1_voidInit();
+    TMR1_voidSetICR(19999);     // Set ICR register value for Timer1
+
+    /* Enable external interrupt INT0 on falling edge */
+    EXTINT_voidEnable(EXTINT_INT0, EXTINT_FALLING_EDGE);
+    EXTINT_voidSetCallBack(&Suspend_LCD, EXTINT_INT0);  // Set callback function for INT0
+
+    /* Create tasks with specified priorities and periodicities */
+    RTOS_voidCreateTask(0, 1000, &Task_1);
+    RTOS_voidCreateTask(1, 2000, &Task_2);
+    RTOS_voidCreateTask(2, 5000, &Task_3);
+    RTOS_voidCreateTask(3, 300, &Task_4);
+    RTOS_voidCreateTask(4, 1000, &Task_5);
+
+    /* Start the Real-Time Operating System */
+    RTOS_voidStart();
+
+    while(1);  // Infinite loop to keep the program running
+    return 0;
+}
+
+/* Task functions */
+
+/* Toggle pin PA0 every 1000 milliseconds */
+void Task_1(void)
+{
+    static u8 flag = 0;
+    if(flag == 0)
+    {
+        DIO_u8SetPinValue(DIO_u8_PORTA, DIO_u8_PIN0, DIO_u8_PIN_HIGH);
+        flag = 1;
+    }
+    else
+    {
+        flag = 0;
+        DIO_u8SetPinValue(DIO_u8_PORTA, DIO_u8_PIN0, DIO_u8_PIN_LOW);
+    }
+}
+
+/* Toggle pin PA1 every 2000 milliseconds */
+void Task_2(void)
+{
+    // Task implementation similar to Task_1
+}
+
+/* Toggle pin PA2 every 5000 milliseconds */
+void Task_3(void)
+{
+    // Task implementation similar to Task_1
+}
+
+/* Increase Timer1 compare match value every 300 milliseconds */
+void Task_4(void)
+{
+    // Task implementation to increment Timer1 compare match value
+}
+
+/* Shift text on LCD to the right every 1000 milliseconds */
+void Task_5(void)
+{
+    // Task implementation to shift text on LCD
+}
+
+/* Callback function to suspend and resume Task_5 on INT0 external interrupt */
+void Suspend_LCD(void)
+{
+    static u8 Local_u8Counter = 0;
+    Local_u8Counter++;
+    if(Local_u8Counter == 1)
+    {
+        RTOS_voidPauseTask(4);   // Pause Task_5
+    }
+    else if(Local_u8Counter == 2)
+    {
+        RTOS_voidResumeTask(4);  // Resume Task_5
+        Local_u8Counter = 0;     // Reset counter
+    }
+    else
+    {
+        // Do nothing
+    }
+}
